@@ -1,0 +1,171 @@
+openapi: 3.0.3
+info:
+  title: Contact management System
+  contact:
+    email: shivam.thakur@innovationm.com
+  version: 1.0.11
+#  use username = username
+#  password = password
+
+servers:
+  - url: https://petstore3.swagger.io/api/v3
+tags:
+  - name: cms
+    description: Contact Management System
+paths:
+  /cms/v1/contact:
+    post:
+      tags:
+        - cms
+      summary: create new contact
+      description: create a new contact
+      requestBody:
+        description: create a new contact
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/contactRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contactResponse'
+
+        '400':
+          description: Invalid ID
+        '404':
+          description: contact not found
+        '405':
+          description: Validation exception
+
+    put:
+      tags:
+        - cms
+      summary: create new contact
+      description: create a new contact
+      requestBody:
+        description: create a new contact
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/contactRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contactResponse'
+
+        '400':
+          description: Invalid ID
+        '404':
+          description: contact not found
+        '405':
+          description: Validation exception
+
+  /cms/v1/contact/{contactId}:
+    get:
+      tags:
+        - cms
+      summary: Find contact by ID
+      description: Returns a single contact
+      parameters:
+        - name: contactId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contactResponse'
+        '400':
+          description: Invalid ID
+        '404':
+          description: contact not found
+    delete:
+      tags:
+        - cms
+      summary: Deletes a contact
+      description: delete a contact
+      parameters:
+        - name: api_key
+          in: header
+          description: ''
+          required: false
+          schema:
+            type: string
+        - name: contactId
+          in: path
+          description: Contact id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Invalid contact value
+components:
+  schemas:
+    contactRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        firstName:
+          type: string
+          example: "akshay"
+        lastName:
+          type: string
+          example: "verma"
+        email:
+          type: string
+          example: "123@gmail.com"
+        phoneNumber:
+          type: string
+          example: "9999990090"
+
+    contactResponse:
+      type: object
+      properties:
+        responseStatus:
+          type: object
+          properties:
+            statusCode:
+              type: integer
+              example: 1
+        responseData:
+          type: array
+          items:
+            properties:
+              id:
+                type: integer
+                example: 1
+              firstName:
+                type: string
+                example: "akshay"
+              lastName:
+                type: string
+                example: "verma"
+              emails:
+                type: string
+                example: "123@gmail.com"
+              phoneNumber:
+                type: string
+                example: "9999909009"
+        message:
+          type: object
+          properties:
+            message:
+              type: string
+              example: "success"
